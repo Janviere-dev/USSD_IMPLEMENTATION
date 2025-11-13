@@ -2,7 +2,7 @@
 
 A React Native application for USSD (Unstructured Supplementary Service Data) implementation on Android and iOS platforms.
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Project Overview](#project-overview)
 - [Prerequisites](#prerequisites)
@@ -16,7 +16,7 @@ A React Native application for USSD (Unstructured Supplementary Service Data) im
 
 ---
 
-## 🎯 Project Overview
+##  Project Overview
 
 This project is a React Native application that implements USSD functionality. USSD is a protocol used for mobile communications to retrieve data or initiate transactions without an internet connection.
 
@@ -30,7 +30,7 @@ This project is a React Native application that implements USSD functionality. U
 
 ---
 
-## 📦 Prerequisites
+##  Prerequisites
 
 Before you can run this project, ensure you have the following installed:
 
@@ -56,7 +56,7 @@ Before you can run this project, ensure you have the following installed:
 
 ---
 
-## 🚀 Installation
+##  Installation
 
 ### Step 1: Clone the Repository
 
@@ -89,7 +89,7 @@ This will install:
 
 ---
 
-## ▶️ Running the Application
+##  Running the Application
 
 ### For Android Development
 
@@ -149,7 +149,7 @@ npx react-native run-ios --simulator="iPhone 14"
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 mpressClean/
@@ -183,7 +183,7 @@ Key Files Explained:
 
 ---
 
-## ✨ Features
+##  Features
 
 ### 1. **USSD Protocol Support**
    - Send USSD requests using `react-native-send-intent`
@@ -208,7 +208,7 @@ Key Files Explained:
 
 ---
 
-## 📚 Dependencies
+##  Dependencies
 
 ### Production Dependencies:
 ```json
@@ -234,7 +234,7 @@ Key Files Explained:
 
 ---
 
-## 🔧 Common Commands
+##  Common Commands
 
 ```bash
 # Start Metro bundler
@@ -258,7 +258,7 @@ cd android && ./gradlew assembleRelease
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### Issue 1: "Unable to load script" on Android
 
@@ -331,7 +331,7 @@ adb start-server
 
 ---
 
-## 💻 Development Workflow
+##  Development Workflow
 
 ### Hot Reload (Recommended)
 
@@ -371,7 +371,7 @@ cd android
 
 ---
 
-## 📱 Testing USSD Functionality
+##  Testing USSD Functionality
 
 ### Example USSD Codes by Provider:
 
@@ -393,7 +393,7 @@ The actual codes depend on your mobile operator.
 
 ---
 
-## 🐛 Debugging
+##  Debugging
 
 ### Enable React Native Debugger
 
@@ -413,7 +413,7 @@ adb logcat | grep ReactNative
 
 ---
 
-## 📝 Contributing
+##  Contributing
 
 1. Create a new branch: `git checkout -b feature/your-feature`
 2. Make changes and test thoroughly
@@ -429,7 +429,7 @@ This project is part of school assignments. Modify and use as needed.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Janviere Munezero**
 - GitHub: [Janviere-dev](https://github.com/Janviere-dev)
@@ -437,7 +437,7 @@ This project is part of school assignments. Modify and use as needed.
 
 ---
 
-## 🆘 Getting Help
+##  Getting Help
 
 - **React Native Documentation:** https://reactnative.dev/docs/getting-started
 - **USSD Protocol:** https://en.wikipedia.org/wiki/Unstructured_Supplementary_Service_Data
@@ -446,7 +446,7 @@ This project is part of school assignments. Modify and use as needed.
 
 ---
 
-## ✅ Quick Start Checklist
+##  Quick Start Checklist
 
 - [ ] Node.js installed
 - [ ] Android SDK/Studio installed
@@ -454,7 +454,7 @@ This project is part of school assignments. Modify and use as needed.
 - [ ] Dependencies installed (`npm install`)
 - [ ] Metro bundler started (`npm start`)
 - [ ] App running on device/emulator (`npx react-native run-android`)
-- [ ] Ready to develop! 🎉
+- [ ] Ready to develop! 
 
 ---
 
