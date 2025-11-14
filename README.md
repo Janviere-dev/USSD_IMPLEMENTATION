@@ -1,34 +1,153 @@
-# USSD Implementation - React Native Project
+# MoMo Press - USSD & SMS Transaction Reader
 
-A React Native application for USSD (Unstructured Supplementary Service Data) implementation on Android and iOS platforms.
+A full-stack React Native application that combines USSD transaction sending with automatic SMS parsing for comprehensive money transfer insights. Features user authentication, transaction history, spending analytics, and per-user data isolation.
 
-##  Table of Contents
+**Tech Stack:** React Native + TypeScript + Express.js + SQLite + JWT Auth
+
+## 📋 Table of Contents
 
 - [Project Overview](#project-overview)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
-- [Features](#features)
-- [Dependencies](#dependencies)
-- [Troubleshooting](#troubleshooting)
-- [Development Workflow](#development-workflow)
+- [Key Features](#key-features)
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [Documentation](#documentation)
 
 ---
 
-##  Project Overview
+## 🎯 Project Overview
 
-This project is a React Native application that implements USSD functionality. USSD is a protocol used for mobile communications to retrieve data or initiate transactions without an internet connection.
+MoMo Press is a unified mobile application that helps users manage their mobile money transactions. It:
 
-**Key Components:**
-- React Native framework for cross-platform mobile development
-- TypeScript for type-safe code
-- Android and iOS support
-- Metro bundler for JavaScript compilation
-- Async Storage for persistent data storage
-- React Native Send Intent for USSD operations
+1. **Reads USSD Responses** - Sends USSD codes to perform transactions
+2. **Parses SMS Messages** - Automatically extracts transaction data from MoMo SMS alerts
+3. **Tracks Spending** - Shows detailed spending breakdown and analytics
+4. **Manages Transactions** - Stores all transactions with user-specific data isolation
+5. **Authenticates Users** - Phone number + password based login with JWT tokens
+
+**Data Isolation:** Each user can only see their own transactions (identified by phone number).
+
+### Architecture
+- **Frontend:** React Native + TypeScript (Android/iOS compatible)
+- **Backend:** Node.js/Express + SQLite + JWT
+- **Authentication:** Phone-based signup with password
+- **Database:** SQLite (local on device + backend)
+- **State Management:** React Context + AsyncStorage
 
 ---
+
+## ✨ Key Features
+
+- ✅ User Registration & Login (phone + password)
+- ✅ Transaction History & Search
+- ✅ Spending Analytics (charts & breakdown)
+- ✅ SMS Message Parsing (auto-detect transaction types)
+- ✅ USSD Integration (send money, check balance)
+- ✅ Per-User Data Isolation
+- ✅ Persistent Authentication (AsyncStorage)
+- ✅ Error Handling & User Feedback
+- ✅ TypeScript for type safety
+- ✅ Full backend REST API
+
+---
+
+## 🚀 Quick Start
+
+### Automated Setup (Recommended)
+```bash
+# Clone the repo (already done)
+cd USSD_IMPLEMENTATION
+
+# Run auto setup
+bash setup.sh
+```
+
+### Manual Setup
+
+**1. Start Backend**
+```bash
+cd backend
+npm install
+npm run dev
+```
+Expected: `Server running on http://localhost:3000`
+
+**2. Get Local IP Address**
+```bash
+# Linux/Mac
+ifconfig | grep "inet "
+
+# Windows
+ipconfig
+
+# Update this in: mpressClean/src/api/config.ts
+```
+
+**3. Start Frontend Metro Bundler**
+```bash
+cd mpressClean
+npm install  # if needed
+npm start
+```
+
+**4. Run on Android Device/Emulator**
+```bash
+cd mpressClean
+npx react-native run-android
+```
+
+See [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md) for detailed setup instructions.
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────┐
+│   React Native App      │
+│ (TypeScript + Context)  │
+└────────────┬────────────┘
+             │ HTTP (Fetch)
+             ↓
+┌─────────────────────────┐
+│  Express API Server     │
+│  (Node.js + SQLite)     │
+│  • Auth (JWT + bcrypt)  │
+│  • Transactions         │
+│  • SMS Logs             │
+└─────────────────────────┘
+```
+
+---
+
+## 📁 Project Structure
+
+```
+USSD_IMPLEMENTATION/
+├── backend/                    # Node.js Express API
+│   ├── src/server.ts          # Main API server
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── mpressClean/               # React Native App
+│   ├── src/
+│   │   ├── screens/           # UI screens
+│   │   ├── context/           # Auth context
+│   │   ├── api/               # API config
+│   │   ├── services/          # Business logic
+│   │   ├── utils/             # SMS parser
+│   │   └── database/          # DB schema
+│   ├── App.tsx                # Main app
+│   ├── index.js               # Entry point
+│   └── android/               # Android config
+│
+├── INTEGRATION_GUIDE.md       # Complete setup guide
+├── PROJECT_STATUS.md          # Development status
+└── setup.sh                   # Auto setup script
+```
+
+---
+
+## 📚 Documentation
 
 ##  Prerequisites
 
@@ -260,74 +379,85 @@ cd android && ./gradlew assembleRelease
 
 ##  Troubleshooting
 
-### Issue 1: "Unable to load script" on Android
-
-**Problem:** App crashes with "unable to load script" error
-
-**Solution:**
-1. Ensure Metro bundler is running: `npm start`
-2. Check that your device/emulator can reach your computer on the network
-3. Verify your development machine's IP address
-4. Clear cache: `npm start -- --reset-cache`
-
-### Issue 2: Gradle build fails
-
-**Problem:** Android build fails with gradle errors
-
-**Solution:**
+### Backend API
 ```bash
-# Clean gradle build
-cd android && ./gradlew clean
-cd .. && npx react-native run-android
+# Health check
+curl http://localhost:3000/health
+
+# Register user
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John","phone_number":"+250789123456","password":"test123"}'
+
+# Login
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"phone":"+250789123456","password":"test123"}'
 ```
 
-### Issue 3: Metro bundler won't start
+See [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md#-manual-testing) for detailed testing instructions.
 
-**Problem:** `npm start` fails
+---
 
-**Solution:**
-```bash
-# Clear Metro cache
-rm -rf node_modules/.cache
+## 🐛 Troubleshooting
 
-# Reinstall dependencies
-rm -rf node_modules package-lock.json
-npm install
+| Problem | Solution |
+|---------|----------|
+| Backend connection fails | Check IP in `src/api/config.ts` matches your machine |
+| "Token expired" 401 error | Clear AsyncStorage and re-login |
+| Phone already registered | Use a different phone number for testing |
+| Metro won't start | `npm start -- --reset-cache` |
+| Android device not detected | `adb kill-server && adb start-server` |
+| SMS not parsing | Check SMS format in `paerseMomoMessage.ts` |
 
-# Try again
-npm start
-```
+Full troubleshooting in [INTEGRATION_GUIDE.md](./INTEGRATION_GUIDE.md#-troubleshooting).
 
-### Issue 4: Android device not detected
+---
 
-**Problem:** `npx react-native run-android` says no device found
+## 📝 Development Workflow
 
-**Solution:**
-```bash
-# Check connected devices
-adb devices
+1. **Start Backend:** `cd backend && npm run dev`
+2. **Start Metro:** `cd mpressClean && npm start`
+3. **Run App:** `npx react-native run-android`
+4. **Make Changes:** Edit code in `src/screens/`, `src/context/`, etc.
+5. **Reload:** Press 'R' twice or shake device
 
-# If using emulator, make sure it's running
-# If using physical device:
-# 1. Enable Developer Mode (tap Build Number 7 times in Settings > About)
-# 2. Enable USB Debugging
-# 3. Connect via USB
-# 4. Authorize on device when prompted
+---
 
-# Restart adb
-adb kill-server
-adb start-server
-```
+## 🎯 Next Steps
 
-### Issue 5: USSD functionality not working
+- [ ] Create SpendingScreen (donut chart)
+- [ ] Create HistoryScreen (transaction list)
+- [ ] Integrate SMS listener service
+- [ ] Test signup/login flow
+- [ ] Verify per-user data isolation
+- [ ] Build release APK
 
-**Problem:** USSD calls don't work
+See [PROJECT_STATUS.md](./PROJECT_STATUS.md) for detailed TODO list.
 
-**Solution:**
-1. Check that `react-native-send-intent` is properly installed
-2. Ensure app has necessary permissions in `AndroidManifest.xml`
-3. Test on physical device (emulator may not support USSD)
-4. Verify your mobile operator supports USSD
+---
+
+## 👥 Team
+
+- **Janviere Munezero** - USSD & Main App
+- **Teammate** - SMS Reading & Transaction Parsing
+
+---
+
+## 📄 License
+
+School assignment project. Modify and use as needed.
+
+---
+
+## 🔗 Quick Links
+
+- 📖 [Full Setup Guide](./INTEGRATION_GUIDE.md)
+- 📊 [Project Status & TODO](./PROJECT_STATUS.md)
+- 🐙 [GitHub Repository](https://github.com/Janviere-dev/USSD_IMPLEMENTATION)
+- 📱 [React Native Docs](https://reactnative.dev)
+- 🟢 [Express Docs](https://expressjs.com)
+- 💾 [SQLite Docs](https://www.sqlite.org)
 
 ---
 
